@@ -170,6 +170,7 @@ export default function SearchBar({ onSearch }) {
   const [checkOut,      setCheckOut]      = useState('');
   const [adults,        setAdults]        = useState(2);
   const [children,      setChildren]      = useState(0);
+  const [pets,          setPets]          = useState(0);
   const [showGuests,    setShowGuests]    = useState(false);
   const [activeSection, setActiveSection] = useState(null);
 
@@ -179,7 +180,7 @@ export default function SearchBar({ onSearch }) {
   const guestBtnRef  = useRef(null);
   const guestDropRef = useRef(null);
 
-  const totalGuests = adults + children;
+  const totalGuests = adults + children + pets;
 
   /* ── Close on outside click ── */
   useEffect(() => {
@@ -387,6 +388,7 @@ export default function SearchBar({ onSearch }) {
               {[
                 { label: 'Adults',   sub: 'Age 13+',  val: adults,   set: setAdults,   min: 1 },
                 { label: 'Children', sub: 'Under 13', val: children, set: setChildren, min: 0 },
+                { label: 'Pets',     sub: 'Dogs, cats, etc.', val: pets, set: setPets, min: 0 },
               ].map((g, idx) => (
                 <div
                   key={g.label}
@@ -468,7 +470,7 @@ export default function SearchBar({ onSearch }) {
             onClick={() => {
               setActiveSection(null);
               setShowGuests(false);
-              onSearch && onSearch({ where, checkIn, checkOut, adults, children });
+              onSearch && onSearch({ where, checkIn, checkOut, adults, children, pets });
             }}
             style={{
               width: 56, height: 56, borderRadius: 16,
